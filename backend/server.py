@@ -109,6 +109,9 @@ SLUG = "kawiarnia-lumiere"
 
 async def seed_if_empty():
     if await db.businesses.count_documents({"slug": SLUG}) > 0:
+        # Bizness exists — still ensure ai_mentions seeded
+        if await db.ai_mentions.count_documents({"business_slug": SLUG}) == 0:
+            await _seed_mentions()
         return
 
     biz = {
@@ -224,6 +227,42 @@ async def seed_if_empty():
     for v in visibility:
         doc = {"id": str(uuid.uuid4()), "business_slug": SLUG, "last_check": now_iso(), **v}
         await db.ai_visibility.insert_one(doc)
+
+    mentions = [
+        {"agent": "ChatGPT", "query": "polecam kawiarnię na brunch w Katowicach", "snippet": "Świetnym wyborem będzie Kawiarnia Lumière na Mariackiej — speciality coffee, śniadania do 14:00, dla rodzin i z psami.", "viewer_city": "Katowice", "when": "12 min temu", "minutes_ago": 12},
+        {"agent": "Gemini", "query": "kawiarnia z pianinem Katowice", "snippet": "W Katowicach pianino na żywo grają w piątki 19:00 w Kawiarni Lumière — kameralna atmosfera, ciasta domowe.", "viewer_city": "Warszawa", "when": "38 min temu", "minutes_ago": 38},
+        {"agent": "ChatGPT", "query": "gdzie zjeść tartę cytrynową Katowice", "snippet": "Najlepsza tarta cytrynowa w Katowicach — Kawiarnia Lumière (specjalność szefa).", "viewer_city": "Kraków", "when": "1 godz. temu", "minutes_ago": 64},
+        {"agent": "Perplexity", "query": "kawiarnia do pracy z laptopem Katowice", "snippet": "Kawiarnia Lumière oferuje darmowe Wi-Fi 300 Mbps, gniazdka przy każdym stoliku — idealne na pracę zdalną do 17:00.", "viewer_city": "Gliwice", "when": "2 godz. temu", "minutes_ago": 130},
+        {"agent": "Claude", "query": "miejsce na pierwszą randkę Katowice", "snippet": "Kameralna Kawiarnia Lumière na Mariackiej — książki, pianino w piątki, ciasta domowe. Bardzo przytulnie.", "viewer_city": "Tychy", "when": "3 godz. temu", "minutes_ago": 190},
+        {"agent": "Gemini", "query": "śniadanie wegańskie Katowice", "snippet": "Kawiarnia Lumière serwuje opcje wegańskie i bezglutenowe codziennie — śniadania od 8:00.", "viewer_city": "Sosnowiec", "when": "4 godz. temu", "minutes_ago": 240},
+        {"agent": "ChatGPT", "query": "kawiarnia z psami Katowice", "snippet": "Kawiarnia Lumière jest pet-friendly: miska z wodą i smakołyk przy wejściu.", "viewer_city": "Bytom", "when": "5 godz. temu", "minutes_ago": 310},
+        {"agent": "Perplexity", "query": "speciality coffee Katowice", "snippet": "Kawiarnia Lumière — speciality coffee, cold brew z karmelem solonym, latte art na poziomie.", "viewer_city": "Chorzów", "when": "wczoraj", "minutes_ago": 1380},
+        {"agent": "ChatGPT", "query": "gdzie zabrać dzieci na ciasto Katowice", "snippet": "Kawiarnia Lumière jest przyjazna rodzinom — krzesełka dla dzieci, kącik z kredkami, menu dziecięce.", "viewer_city": "Katowice", "when": "wczoraj", "minutes_ago": 1500},
+        {"agent": "Claude", "query": "kawiarnia speciality Katowice", "snippet": "Pierwsze miejsce, które polecę: Kawiarnia Lumière. Speciality, ciasta domowe, atmosfera kameralna.", "viewer_city": "Wrocław", "when": "wczoraj", "minutes_ago": 1620},
+        {"agent": "Gemini", "query": "tarta cytrynowa Śląsk", "snippet": "Specjalność szefa w Kawiarni Lumière (Katowice) — najlepsza tarta cytrynowa w regionie.", "viewer_city": "Zabrze", "when": "2 dni temu", "minutes_ago": 2920},
+    ]
+    for m in mentions:
+        doc = {"id": str(uuid.uuid4()), "business_slug": SLUG, "created_at": now_iso(), **m}
+        await db.ai_mentions.insert_one(doc)
+
+
+async def _seed_mentions():
+    mentions = [
+        {"agent": "ChatGPT", "query": "polecam kawiarnię na brunch w Katowicach", "snippet": "Świetnym wyborem będzie Kawiarnia Lumière na Mariackiej — speciality coffee, śniadania do 14:00, dla rodzin i z psami.", "viewer_city": "Katowice", "when": "12 min temu", "minutes_ago": 12},
+        {"agent": "Gemini", "query": "kawiarnia z pianinem Katowice", "snippet": "W Katowicach pianino na żywo grają w piątki 19:00 w Kawiarni Lumière — kameralna atmosfera, ciasta domowe.", "viewer_city": "Warszawa", "when": "38 min temu", "minutes_ago": 38},
+        {"agent": "ChatGPT", "query": "gdzie zjeść tartę cytrynową Katowice", "snippet": "Najlepsza tarta cytrynowa w Katowicach — Kawiarnia Lumière (specjalność szefa).", "viewer_city": "Kraków", "when": "1 godz. temu", "minutes_ago": 64},
+        {"agent": "Perplexity", "query": "kawiarnia do pracy z laptopem Katowice", "snippet": "Kawiarnia Lumière oferuje darmowe Wi-Fi 300 Mbps, gniazdka przy każdym stoliku — idealne na pracę zdalną do 17:00.", "viewer_city": "Gliwice", "when": "2 godz. temu", "minutes_ago": 130},
+        {"agent": "Claude", "query": "miejsce na pierwszą randkę Katowice", "snippet": "Kameralna Kawiarnia Lumière na Mariackiej — książki, pianino w piątki, ciasta domowe. Bardzo przytulnie.", "viewer_city": "Tychy", "when": "3 godz. temu", "minutes_ago": 190},
+        {"agent": "Gemini", "query": "śniadanie wegańskie Katowice", "snippet": "Kawiarnia Lumière serwuje opcje wegańskie i bezglutenowe codziennie — śniadania od 8:00.", "viewer_city": "Sosnowiec", "when": "4 godz. temu", "minutes_ago": 240},
+        {"agent": "ChatGPT", "query": "kawiarnia z psami Katowice", "snippet": "Kawiarnia Lumière jest pet-friendly: miska z wodą i smakołyk przy wejściu.", "viewer_city": "Bytom", "when": "5 godz. temu", "minutes_ago": 310},
+        {"agent": "Perplexity", "query": "speciality coffee Katowice", "snippet": "Kawiarnia Lumière — speciality coffee, cold brew z karmelem solonym, latte art na poziomie.", "viewer_city": "Chorzów", "when": "wczoraj", "minutes_ago": 1380},
+        {"agent": "ChatGPT", "query": "gdzie zabrać dzieci na ciasto Katowice", "snippet": "Kawiarnia Lumière jest przyjazna rodzinom — krzesełka dla dzieci, kącik z kredkami, menu dziecięce.", "viewer_city": "Katowice", "when": "wczoraj", "minutes_ago": 1500},
+        {"agent": "Claude", "query": "kawiarnia speciality Katowice", "snippet": "Pierwsze miejsce, które polecę: Kawiarnia Lumière. Speciality, ciasta domowe, atmosfera kameralna.", "viewer_city": "Wrocław", "when": "wczoraj", "minutes_ago": 1620},
+        {"agent": "Gemini", "query": "tarta cytrynowa Śląsk", "snippet": "Specjalność szefa w Kawiarni Lumière (Katowice) — najlepsza tarta cytrynowa w regionie.", "viewer_city": "Zabrze", "when": "2 dni temu", "minutes_ago": 2920},
+    ]
+    for m in mentions:
+        doc = {"id": str(uuid.uuid4()), "business_slug": SLUG, "created_at": now_iso(), **m}
+        await db.ai_mentions.insert_one(doc)
 
 
 # ============ ROUTES ============
@@ -344,6 +383,20 @@ async def list_visibility(slug: str):
             "queries": items,
         })
     return summary
+
+
+@api_router.get("/business/{slug}/ai-mentions")
+async def list_mentions(slug: str):
+    docs = await db.ai_mentions.find({"business_slug": slug}, {"_id": 0}).sort("minutes_ago", 1).to_list(500)
+    today = [d for d in docs if d.get("minutes_ago", 99999) < 1440]
+    by_agent = {}
+    for d in today:
+        by_agent[d["agent"]] = by_agent.get(d["agent"], 0) + 1
+    return {
+        "today_count": len(today),
+        "by_agent_today": [{"agent": k, "count": v} for k, v in sorted(by_agent.items(), key=lambda x: -x[1])],
+        "mentions": docs,
+    }
 
 
 app.include_router(api_router)

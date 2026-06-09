@@ -376,6 +376,115 @@ body {
 .float .ft em { font-style:normal; color:var(--accent-deep); }
 .float .fs { color:var(--muted); font-size:.73rem; margin-top:2px; }
 
+/* ============================================================= LIVE MENTIONS BANNER */
+.live-banner {
+  display:flex; align-items:center; gap:18px;
+  padding:12px 16px; margin-bottom:16px;
+  background:linear-gradient(95deg, var(--accent) 0%, var(--accent-deep) 100%);
+  border-radius:14px; color:var(--accent-fg);
+  text-decoration:none;
+  box-shadow:0 14px 30px -14px var(--glow);
+  position:relative; overflow:hidden;
+  transition:transform .2s ease;
+}
+.live-banner:hover { transform:translateY(-1px); }
+.live-banner::before {
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(120% 100% at 0% 0%, rgba(255,255,255,.18), transparent 55%);
+  pointer-events:none;
+}
+.lb-left { display:flex; align-items:center; gap:14px; flex-shrink:0; position:relative; }
+.lb-dot {
+  width:9px; height:9px; border-radius:50%;
+  background:#fff; box-shadow:0 0 0 4px rgba(255,255,255,.22);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow:0 0 0 0 rgba(255,255,255,.5); }
+  50% { box-shadow:0 0 0 8px rgba(255,255,255,0); }
+}
+.lb-counter { display:flex; align-items:baseline; gap:7px; }
+.lb-num { font-family:'Schibsted Grotesk'; font-weight:800; font-size:1.7rem; line-height:1; letter-spacing:-.02em; }
+.lb-lbl { font-size:.74rem; font-weight:600; opacity:.92; }
+.lb-agents { display:flex; gap:5px; }
+.lb-pill {
+  display:inline-flex; align-items:center; gap:2px; padding:3px 7px;
+  border-radius:999px; font-size:.62rem; font-weight:800; color:#fff;
+  box-shadow:0 2px 6px -2px rgba(0,0,0,.35);
+}
+.lb-pill small { font-size:.62rem; font-weight:700; opacity:.92; }
+.lb-ticker {
+  flex:1; min-width:0; display:flex; align-items:center; gap:9px;
+  position:relative; padding-left:14px; border-left:1px solid rgba(255,255,255,.22);
+  animation: fadein .55s ease;
+}
+@keyframes fadein {
+  from { opacity:0; transform:translateX(6px); }
+  to { opacity:1; transform:none; }
+}
+.lb-tag {
+  font-size:.62rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  padding:3px 8px; border-radius:999px; background:rgba(255,255,255,.18); flex-shrink:0;
+}
+.lb-text {
+  flex:1; font-size:.84rem; font-weight:500; line-height:1.35;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:.96;
+}
+.lb-cta {
+  font-size:.78rem; font-weight:700; flex-shrink:0;
+  padding:6px 12px; border-radius:999px; background:rgba(0,0,0,.18);
+}
+@media (max-width:980px) {
+  .live-banner { flex-wrap:wrap; }
+  .lb-ticker { width:100%; padding-left:0; border-left:none; padding-top:8px; border-top:1px solid rgba(255,255,255,.18); }
+  .lb-text { white-space:normal; }
+}
+
+/* ============================================================= MENTIONS PAGE */
+.mentions-hero {
+  display:flex; gap:32px; padding:24px 26px; align-items:center; flex-wrap:wrap;
+  background:linear-gradient(135deg, var(--accent-soft), transparent 70%), var(--surface);
+}
+.mentions-hero .mh-left { flex:1; min-width:240px; }
+.mh-big {
+  font-family:'Schibsted Grotesk'; font-weight:800;
+  font-size:3.6rem; line-height:.95; letter-spacing:-.03em;
+  margin-top:10px; color:var(--accent-deep);
+  display:flex; align-items:baseline; gap:10px;
+}
+.mh-big small { font-size:1rem; font-weight:700; color:var(--ink-soft); letter-spacing:0; }
+.mh-sub { color:var(--muted); font-size:.86rem; margin-top:8px; }
+.mh-right { display:flex; gap:14px; flex-wrap:wrap; }
+.mh-agent {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:14px;
+  background:var(--surface-2); border:1px solid var(--line);
+}
+.agent-dot {
+  width:30px; height:30px; border-radius:9px; color:#fff;
+  display:grid; place-items:center; font-weight:800; font-size:.84rem;
+  box-shadow:0 4px 10px -4px rgba(0,0,0,.25);
+}
+.mh-an { font-weight:700; font-size:.86rem; }
+.mh-ac { font-size:.72rem; color:var(--muted); margin-top:2px; }
+
+.mentions-feed { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:14px; }
+.mention-card { padding:16px 18px; }
+.m-head { display:flex; align-items:flex-start; gap:11px; }
+.m-meta { flex:1; min-width:0; }
+.m-agent { font-family:'Schibsted Grotesk'; font-weight:800; font-size:.95rem; }
+.m-when { color:var(--muted); font-weight:500; font-size:.78rem; }
+.m-query { color:var(--muted); font-size:.76rem; margin-top:3px; }
+.m-snippet {
+  margin-top:12px; padding:12px 14px; border-radius:12px;
+  background:var(--surface-2); border:1px solid var(--line-2);
+  font-size:.88rem; line-height:1.5; color:var(--ink); position:relative;
+}
+.m-snippet::before {
+  content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+  border-radius:3px 0 0 3px; background:var(--accent); opacity:.5;
+}
+
 /* ============================================================= PAGE: GENERIC */
 .page-head { padding:0 0 16px; display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .page-title { font-family:'Schibsted Grotesk'; font-weight:800; font-size:1.55rem; letter-spacing:-.02em; line-height:1.1; }

@@ -4,6 +4,7 @@ import { API } from "../App";
 import { Stars } from "../components/Atoms";
 import ReviewItem from "../components/ReviewItem";
 import ReplyModal from "../components/ReplyModal";
+import LiveMentionsBanner from "../components/LiveMentionsBanner";
 
 const RATINGS = ["5", "4", "3", "2", "1"];
 
@@ -36,6 +37,7 @@ export default function Pulpit({ biz, reviews, refreshReviews }) {
 
   return (
     <>
+      <LiveMentionsBanner />
       <div className="grid" data-testid="pulpit-page">
         {/* LEFT RAIL */}
         <aside className="rail">

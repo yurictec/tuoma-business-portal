@@ -4,6 +4,7 @@ import axios from "axios";
 import Pulpit from "./pages/Pulpit";
 import Opinie from "./pages/Opinie";
 import AIFeed from "./pages/AIFeed";
+import Wzmianki from "./pages/Wzmianki";
 import Klienci from "./pages/Klienci";
 import Statystyki from "./pages/Statystyki";
 import ZbierajOpinie from "./pages/ZbierajOpinie";
@@ -61,6 +62,7 @@ const ICONS = {
   collect: '<path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h3v3h-3zM20 14v6M17 20h3"/>',
   widget: '<path d="M3 5h18v4H3zM3 13h8v6H3zM15 13h6v6h-6z"/>',
   stats: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  mentions: '<circle cx="12" cy="12" r="9"/><path d="M8 12h.01M12 12h.01M16 12h.01"/>',
   ai: '<path d="M12 2v3M12 19v3M5 12H2M22 12h-3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/><circle cx="12" cy="12" r="5"/>',
   customers: '<circle cx="9" cy="8" r="4"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M16 4a4 4 0 0 1 0 8M22 21v-2a6 6 0 0 0-3-5"/>',
   settings: '<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1l-.4-2.5H10l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6c.1-.3.1-.7.1-1z"/>',
@@ -74,6 +76,7 @@ function Sidebar({ counts }) {
       </div>
       <NavItem testid="nav-pulpit" to="/" end icon={ICONS.home} label="Pulpit" />
       <NavItem testid="nav-opinie" to="/opinie" icon={ICONS.reviews} label="Opinie" badge={counts.unreplied || null} />
+      <NavItem testid="nav-wzmianki" to="/wzmianki" icon={ICONS.mentions} label="Wzmianki AI · live" />
       <NavItem testid="nav-ai" to="/ai-feed" icon={ICONS.ai} label="Feed Prawdy · AI" />
       <NavItem testid="nav-klienci" to="/klienci" icon={ICONS.customers} label="Klienci" />
       <NavItem testid="nav-zbieraj" to="/zbieraj" icon={ICONS.collect} label="Zbieraj opinie" />
@@ -149,6 +152,7 @@ function Shell() {
     const map = {
       "/": "pulpit",
       "/opinie": "opinie",
+      "/wzmianki": "wzmianki-ai",
       "/ai-feed": "feed-prawdy",
       "/klienci": "klienci",
       "/zbieraj": "zbieraj-opinie",
@@ -180,6 +184,7 @@ function Shell() {
                 <Routes>
                   <Route path="/" element={<Pulpit biz={biz} reviews={reviews} refreshReviews={refreshReviews} />} />
                   <Route path="/opinie" element={<Opinie reviews={reviews} refreshReviews={refreshReviews} counts={counts} />} />
+                  <Route path="/wzmianki" element={<Wzmianki />} />
                   <Route path="/ai-feed" element={<AIFeed />} />
                   <Route path="/klienci" element={<Klienci />} />
                   <Route path="/zbieraj" element={<ZbierajOpinie />} />

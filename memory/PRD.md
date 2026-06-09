@@ -24,12 +24,13 @@ User uploaded HTML mockup `portal-dashboard.html` for the business portal — ta
 5. **Klienci** — customer database recovered from intercepted reviews (the "moat").
 
 ## Implemented (Jan 9, 2026)
-- ✅ FastAPI backend with auto-seed: 1 business, 9 reviews, 12 truth facts, 6 customers, 8 AI visibility entries.
-- ✅ Endpoints: business, metrics, reviews list/filter/patch, truth CRUD, customers, ai-visibility (grouped).
+- ✅ FastAPI backend with auto-seed: 1 business, 9 reviews, 12 truth facts, 6 customers, 8 AI visibility entries, **11 AI mentions**.
+- ✅ Endpoints: business, metrics, reviews list/filter/patch, truth CRUD, customers, ai-visibility (grouped), **ai-mentions (with today summary)**.
 - ✅ React portal with persistent palette (localStorage) and full sidebar navigation.
-- ✅ Pages: Pulpit, Opinie, **Feed Prawdy · AI**, **Klienci**, Zbieraj opinie (QR + link), Widżet WWW (code snippet), Statystyki, Ustawienia.
+- ✅ Pages: Pulpit (+ **live mentions banner with auto-rotating ticker**), Opinie, **Wzmianki AI · live** (hero counter + per-agent feed), Feed Prawdy · AI, Klienci, Zbieraj opinie, Widżet WWW, Statystyki, Ustawienia.
 - ✅ Reply modal with 3 modes: publiczna odpowiedź / podziękowanie / **przechwycenie** (private manager message).
 - ✅ Backend tested via pytest 11/11 passing. Frontend e2e via Playwright — all pages render, all 4 themes switch.
+- ✅ **Live AI Mentions retention hook** — owner sees real quotes from ChatGPT/Claude/Gemini/Perplexity recommending his cafe; pulsing live banner shows today's count + ticker.
 
 ## Backlog (Prioritized)
 - **P0** — Real AI visibility check (call ChatGPT/Claude/Gemini through Emergent LLM key) instead of seeded data.
