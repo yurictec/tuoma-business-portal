@@ -1,0 +1,33 @@
+{
+  "summary": "First iteration testing for Tuoma Portal (kawiarnia-lumiere). Backend 11/11 pytest passed (Business, Metrics, Reviews CRUD+filters, Truth CRUD, Customers, AI Visibility). Frontend: all sidebar routes (Pulpit, Opinie, Feed Prawdy, Klienci, Zbieraj, Widzet, Statystyki) load, all 4 palettes (Petrol/Tide/Clay/Midnight) switch body[data-pal], Pulpit shows 4,8 rating + distribution + Tuoma/Google sources + 4 tiles (NOWE OPINIE/PRZECHWYCONE/RECOVERY/REAKCJA — uppercased) + reviews list, AI Feed renders ChatGPT/Claude/Gemini/Perplexity cards with rate% and fact grid with categories, Opinie shows tabs Wszystkie/Bez odpowiedzi/Negatywne/Przechwycone with Odpowiedz buttons. Visual review via screenshots is clean and polished.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Reply modal on Opinie", "issue": "Could not locate <textarea> in reply modal via Playwright — modal likely uses <input> or contenteditable; visually modal appears present. Recommend adding data-testid='reply-textarea' and data-testid='reply-save' to ReplyModal", "affected_selectors": ["textarea"]},
+      {"flow": "Dodaj fakt modal on AI Feed", "issue": "Found only 2 input fields in modal (expected 3 for key/label/value). Either category is a select or label/key are combined. Add data-testid attributes on form inputs and submit button", "affected_selectors": ["input", "textarea"]},
+      {"flow": "Klienci table verification", "issue": "Customer rows not in a <table> element; could not verify status badges via text search. Add data-testid='customer-row' and data-testid='customer-status-*' for testability"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_tuoma_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Add data-testid to ReplyModal (reply-textarea, reply-save) for automated testing",
+    "Add data-testid to TruthFact add modal inputs (fact-key, fact-label, fact-value, fact-category, fact-save)",
+    "Add data-testid='customer-row' and status testids on Klienci rows",
+    "Consider exposing tile labels (Nowe/Przechwycone/Recovery/Reakcja) in title-case or with data-testid for stable testing"
+  ],
+  "critical_code_review_comments": [
+    "server.py metrics endpoint hardcodes magic numbers (24, 8, 62, 94, sparkline) — acceptable for MVP but should be derived from real data later",
+    "intercepted_total formula `3 + intercepted - 2` is odd/opaque; rename or document",
+    "No HTTPException handling for missing slug in customers/truth/ai-visibility endpoints (returns empty list instead of 404) — minor",
+    "All endpoints use slug from path with no validation/sanitization — acceptable since single-tenant",
+    "data-testid coverage on interactive elements is incomplete (modals, table rows)"
+  ],
+  "updated_files": ["/app/backend/tests/test_tuoma_api.py"],
+  "success_rate": {"backend": "100%", "frontend": "90%"},
+  "seed_data_creation": "Backend auto-seeded on startup (1 business, 9 reviews, 12 truth facts, 6 customers, 8 ai-visibility entries). Verified via API. Test created+deleted one TEST_ truth fact and patched one review status (status now 'resolved' with response='TEST_response_text').",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend fully working at REACT_APP_BACKEND_URL. Pytest file at /app/backend/tests/test_tuoma_api.py covers all 12 endpoints. Frontend pages all render correctly; modal interactions need data-testid attributes for reliable Playwright automation. Note: review id with response='TEST_response_text' was created by patch test — non-destructive."
+}
