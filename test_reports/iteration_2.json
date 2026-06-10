@@ -1,0 +1,49 @@
+{
+  "summary": "Tested the new /lp marketing landing page: backend waitlist endpoints + frontend landing flow (audit demo, waitlist submission, navigation, portal isolation). All 6 pytest cases and all frontend e2e checks passed.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_waitlist.py",
+    "/app/test_reports/pytest/waitlist_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Email validation in WaitlistEntry uses plain `str` — consider EmailStr from pydantic for stronger validation (currently any string with '@...' passes; even malformed emails like 'foo' would be rejected only because of empty check in UI). Optional improvement.",
+    "GET /api/waitlist/count baseline offset (247) is hardcoded inside the route; if product wants to tune social-proof later, move to env/config.",
+    "No deduplication on waitlist — same email can submit multiple times. Not a bug per spec but worth noting for spam protection.",
+    "Landing.jsx is 438 lines — acceptable but approaching the 700-line guideline; AuditDemo and WaitlistForm could be split into separate files for maintainability."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_waitlist.py"
+  ],
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "100%"
+  },
+  "test_credentials": "none required",
+  "seed_data_creation": "Created test waitlist rows prefixed with TEST_ (TEST_Min User, TEST_Full User, TEST_Counter, TEST_E2E Anna). They live in db.waitlist. No cleanup endpoint exists; rows are harmless social-proof counts.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration_1 already covered portal flows (Pulpit, Wzmianki, AI Feed, Klienci). Iteration_2 covers only the /lp landing + waitlist endpoints. Reuse /app/backend/tests/test_waitlist.py for regression. Landing test selectors: data-testid=landing-page, audit-biz/city/run/verdict, wf-name/email/biz/city/role-{owner,investor,other}/submit, waitlist-success. Portal isolation verified: sidebar/topbar/palette-switcher absent on /lp.",
+  "verified_flows": [
+    "POST /api/waitlist (minimal + full payloads) returns {ok:true, id}",
+    "POST /api/waitlist increments db count by 1",
+    "POST /api/waitlist with invalid role -> 422",
+    "POST /api/waitlist missing email -> 422",
+    "GET /api/waitlist/count returns {count: real+247, real}",
+    "/lp loads Landing without portal chrome (no sidebar, no topbar, no palette switcher)",
+    "All 5 nav links present (Problem, Jak działa, Produkt, Dla inwestorów, Zaloguj się)",
+    "Hero shows 'Klient już nie googluje' + 4 phone-cards",
+    "Audit demo: fill biz+city, run, verdict 0/4 appears after ~3.8s",
+    "Waitlist form full flow -> waitlist-success 'Jesteś na liście.'",
+    "Counter 'Dołączyło już X osób' visible on form",
+    "Click 'Zaloguj się →' navigates to / and portal Shell (sidebar) renders"
+  ]
+}

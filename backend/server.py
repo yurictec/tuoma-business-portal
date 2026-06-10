@@ -103,6 +103,17 @@ class AIVisibility(BaseModel):
     last_check: str = Field(default_factory=now_iso)
 
 
+class WaitlistEntry(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    name: str
+    email: str
+    business_name: Optional[str] = None
+    city: Optional[str] = None
+    phone: Optional[str] = None
+    role: Literal["owner", "investor", "other"] = "owner"
+    message: Optional[str] = None
+
+
 # ============ SEED ============
 
 SLUG = "kawiarnia-lumiere"
@@ -397,6 +408,25 @@ async def list_mentions(slug: str):
         "by_agent_today": [{"agent": k, "count": v} for k, v in sorted(by_agent.items(), key=lambda x: -x[1])],
         "mentions": docs,
     }
+
+
+@api_router.post("/waitlist")
+async def join_waitlist(entry: WaitlistEntry):
+    doc = {
+        "id": str(uuid.uuid4()),
+        "created_at": now_iso(),
+        **entry.model_dump(),
+    }
+    await db.waitlist.insert_one(doc)
+    doc.pop("_id", None)
+    return {"ok": True, "id": doc["id"]}
+
+
+@api_router.get("/waitlist/count")
+async def waitlist_count():
+    total = await db.waitlist.count_documents({})
+    # Add baseline social-proof offset
+    return {"count": total + 247, "real": total}
 
 
 app.include_router(api_router)

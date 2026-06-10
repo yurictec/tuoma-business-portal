@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { BrowserRouter, Routes, Route, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import Pulpit from "./pages/Pulpit";
+import Landing from "./pages/Landing";
 import Opinie from "./pages/Opinie";
 import AIFeed from "./pages/AIFeed";
 import Wzmianki from "./pages/Wzmianki";
@@ -204,7 +205,10 @@ function Shell() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Shell />
+      <Routes>
+        <Route path="/lp" element={<Landing />} />
+        <Route path="/*" element={<Shell />} />
+      </Routes>
     </BrowserRouter>
   );
 }
