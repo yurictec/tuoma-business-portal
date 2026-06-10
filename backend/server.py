@@ -429,6 +429,51 @@ async def waitlist_count():
     return {"count": total + 247, "real": total}
 
 
+@api_router.get("/trust/audit-log")
+async def trust_audit_log():
+    """Public audit log — anonymised activity proving Tuoma is alive and neutral."""
+    facts = await db.truth_facts.find({}, {"_id": 0}).sort("last_synced", -1).to_list(50)
+    mentions = await db.ai_mentions.find({}, {"_id": 0}).sort("minutes_ago", 1).to_list(50)
+    reviews = await db.reviews.find({}, {"_id": 0}).sort("created_at", -1).to_list(50)
+
+    events = []
+    for f in facts[:8]:
+        events.append({
+            "kind": "fact_synced",
+            "icon": "F",
+            "title": f"Feed Prawdy zsynchronizowany · {f['label']}",
+            "subtitle": f"biznes #{f['business_slug'][:6]}··· · widoczne dla 4 agentów AI",
+            "at": f.get("last_synced"),
+            "rel": "przed chwilą",
+        })
+    for m in mentions[:8]:
+        events.append({
+            "kind": "ai_mention",
+            "icon": "★",
+            "title": f"Wzmianka w {m['agent']}",
+            "subtitle": f"zapytanie z {m.get('viewer_city', '—')} · biznes wymieniony bez płatnej dystrybucji",
+            "at": m.get("created_at"),
+            "rel": m.get("when"),
+        })
+    for r in reviews[:6]:
+        if r.get("intercepted"):
+            events.append({
+                "kind": "intercept",
+                "icon": "↻",
+                "title": "Negatyw przechwycony (1 zdarzenie)",
+                "subtitle": f"opinia ≤2★ trafiła prywatnie do właściciela · NIE opublikowana publicznie",
+                "at": r.get("created_at"),
+                "rel": r.get("when"),
+            })
+
+    return {
+        "facts_total": len(facts),
+        "mentions_total": len(mentions),
+        "reviews_total": len(reviews),
+        "events": events[:18],
+    }
+
+
 app.include_router(api_router)
 
 app.add_middleware(

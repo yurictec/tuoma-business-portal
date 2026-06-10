@@ -20,10 +20,10 @@ const NODES = [
     title: "Admin Tuoma",
     role: "Nadzór i moderacja",
     desc: "Trzecia niezależna strona. Weryfikuje fakty, łączy źródła opinii, zasila Feed Prawdy.",
-    chip: "internal",
+    chip: "/trust",
     color: "#f5a623",
-    angle: -90,         // top
-    href: null,         // not clickable — internal layer
+    angle: -90,
+    href: "/trust",
     testid: "node-admin",
   },
   {

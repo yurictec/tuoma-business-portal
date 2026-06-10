@@ -37,6 +37,8 @@ User uploaded HTML mockup `portal-dashboard.html` for the business portal — ta
 - ✅ **Ecosystem section on `/lp`** — animated SVG hub-and-spoke diagram: central Tuoma "NEUTRAL LAYER" + 4 nodes (Admin / Portal / Publiczna strona / Link do opinii) with traveling data tokens.
 - ✅ **Public business page `/p/:slug`** — light themed digital-footprint page: avatar, rating, 12 verified AI facts grouped by category, public reviews block, "Zostaw opinię" CTA.
 - ✅ **Universal review link `/r/:slug`** — 2-step dark form with smart routing: 5★ → 4 public services (Tuoma/Google/Facebook/Booking), ≤3★ → Tuoma intercept only (private to owner). Negative reviews never leak to public sources by default.
+- ✅ **Trust page `/trust`** — Tuoma's public credibility statement: hero, DO/DON'T columns (4+4), EU compliance (DMA, Data Act, GDPR, AI Act), live cap-table with "Not owned by" anti-gatekeeper grid (Google/Meta/MS/OpenAI/Anthropic/Booking), and public audit log with 18 live events from the database.
+- ✅ Backend endpoint `/api/trust/audit-log` returning live activity events.
 
 ## Backlog (Prioritized)
 - **P0** — Real AI visibility check (call ChatGPT/Claude/Gemini through Emergent LLM key) instead of seeded data.

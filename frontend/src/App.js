@@ -5,6 +5,7 @@ import Pulpit from "./pages/Pulpit";
 import Landing from "./pages/Landing";
 import PublicProfile from "./pages/PublicProfile";
 import ReviewLink from "./pages/ReviewLink";
+import Trust from "./pages/Trust";
 import Opinie from "./pages/Opinie";
 import AIFeed from "./pages/AIFeed";
 import Wzmianki from "./pages/Wzmianki";
@@ -211,6 +212,7 @@ export default function App() {
         <Route path="/lp" element={<Landing />} />
         <Route path="/p/:slug" element={<PublicProfile />} />
         <Route path="/r/:slug" element={<ReviewLink />} />
+        <Route path="/trust" element={<Trust />} />
         <Route path="/*" element={<Shell />} />
       </Routes>
     </BrowserRouter>
