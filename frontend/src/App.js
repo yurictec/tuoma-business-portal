@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, NavLink, useLocation } from "react-router
 import axios from "axios";
 import Pulpit from "./pages/Pulpit";
 import Landing from "./pages/Landing";
+import PublicProfile from "./pages/PublicProfile";
+import ReviewLink from "./pages/ReviewLink";
 import Opinie from "./pages/Opinie";
 import AIFeed from "./pages/AIFeed";
 import Wzmianki from "./pages/Wzmianki";
@@ -207,6 +209,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/lp" element={<Landing />} />
+        <Route path="/p/:slug" element={<PublicProfile />} />
+        <Route path="/r/:slug" element={<ReviewLink />} />
         <Route path="/*" element={<Shell />} />
       </Routes>
     </BrowserRouter>

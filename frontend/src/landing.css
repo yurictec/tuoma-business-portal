@@ -371,6 +371,76 @@ body[data-lp="1"] .controls { display:none; }
 .verdict-sub { color:var(--ink-soft); font-size:.92rem; margin-top:6px; line-height:1.5; }
 .verdict-cta { margin-left:auto; }
 
+/* ============ ECOSYSTEM ============ */
+.lp-section.ecosystem { padding-bottom:60px; }
+.eco-wrap {
+  position:relative; width:100%; max-width:880px;
+  margin:0 auto; aspect-ratio:1 / 1;
+}
+.eco-svg {
+  width:100%; height:100%;
+  filter: drop-shadow(0 30px 80px rgba(32,201,185,.15));
+}
+.eco-node {
+  position:absolute; transform:translate(-50%, -50%);
+  width:180px; padding:14px 16px;
+  background:rgba(10,24,22,.85);
+  border:1px solid var(--line);
+  border-top:2px solid var(--c);
+  border-radius:14px;
+  backdrop-filter: blur(14px);
+  box-shadow:0 18px 40px -16px rgba(0,0,0,.6);
+  text-decoration:none; color:var(--ink);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .2s;
+  cursor:default;
+}
+.eco-node.linked { cursor:pointer; }
+.eco-node.linked:hover {
+  transform:translate(-50%, calc(-50% - 4px));
+  box-shadow:0 24px 50px -18px var(--c);
+  border-color:var(--c);
+}
+.eco-node-chip {
+  display:inline-block; padding:2px 8px; border-radius:999px;
+  font:800 .58rem 'JetBrains Mono', monospace; letter-spacing:.06em;
+  border:1px solid; opacity:.85;
+}
+.eco-node-title {
+  font-family:'Schibsted Grotesk'; font-weight:800; font-size:1rem;
+  margin-top:8px; letter-spacing:-.01em;
+}
+.eco-node-role {
+  font-size:.7rem; color:var(--c); font-weight:700;
+  margin-top:3px; opacity:.92;
+}
+.eco-node-desc {
+  font-size:.74rem; color:var(--ink-soft); line-height:1.45;
+  margin-top:8px;
+}
+.eco-node-go {
+  font-size:.72rem; color:var(--c); font-weight:700;
+  margin-top:9px; padding-top:8px; border-top:1px dashed rgba(255,255,255,.08);
+}
+.eco-node.internal {
+  background:rgba(10,24,22,.6);
+}
+.eco-node.internal .eco-node-desc { color:var(--muted); }
+
+.eco-cta {
+  text-align:center; margin-top:28px;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.eco-cta-hint {
+  color:var(--muted); font-size:.78rem;
+}
+
+@media (max-width:760px) {
+  .eco-wrap { max-width:600px; }
+  .eco-node { width:140px; padding:10px 12px; }
+  .eco-node-title { font-size:.85rem; }
+  .eco-node-desc { font-size:.66rem; }
+}
+
 /* ============ HOW ============ */
 .how-grid {
   display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;

@@ -4,6 +4,7 @@ import axios from "axios";
 import { API } from "../App";
 import Counter from "../components/Counter";
 import SocialProof from "../components/SocialProof";
+import Ecosystem from "../components/Ecosystem";
 
 /* ============================== AUDIT DEMO ============================== */
 const AGENTS = [
@@ -220,6 +221,7 @@ export default function Landing() {
         <Link to="/lp" className="lp-logo">tu<span>o</span>ma</Link>
         <nav className="lp-links">
           <a href="#pain" data-testid="nav-pain">Problem</a>
+          <a href="#ecosystem" data-testid="nav-eco">Ekosystem</a>
           <a href="#how" data-testid="nav-how">Jak działa</a>
           <a href="#product" data-testid="nav-product">Produkt</a>
           <a href="#investors" data-testid="nav-investors">Dla inwestorów</a>
@@ -299,6 +301,22 @@ export default function Landing() {
           <p className="sec-sub">To nie jest „strona druga w Google”. To brak imienia w odpowiedzi, którą agent daje klientowi w 0,4 sekundy.</p>
         </div>
         <AuditDemo />
+      </section>
+
+      {/* ECOSYSTEM */}
+      <section id="ecosystem" className="lp-section ecosystem">
+        <div className="sec-head center">
+          <span className="kicker">Pełna ekosystema · 4 warstwy, jedna prawda</span>
+          <h2>Nie aplikacja. Warstwa, która łączy biznes, klienta i AI.</h2>
+          <p className="sec-sub">
+            Tuoma to nie jeszcze jeden dashboard. To neutralna infrastruktura, w której każda warstwa ma jasną rolę — od admina po link, który klient skanuje w kawiarni.
+          </p>
+        </div>
+        <Ecosystem />
+        <div className="eco-cta">
+          <a href="#waitlist" className="btn-cta" data-testid="eco-cta">Chcę swoją warstwę →</a>
+          <span className="eco-cta-hint">Kliknij w warstwy — każda jest prawdziwa, działa już teraz</span>
+        </div>
       </section>
 
       {/* HOW IT WORKS */}

@@ -1,0 +1,57 @@
+{
+  "summary": "Frontend-only testing of new ecosystem features: /p/:slug public profile, /r/:slug review link with smart-routing, and animated Ecosystem diagram on /lp. All 16 assertions across 8 testing groups passed. UI flows fully working end-to-end.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Ecosystem.jsx: clickable nodes use target='_blank' for internal routes (/, /p/:slug, /r/:slug). Spec allows this, but consider whether internal /portal links should stay in same tab for better UX continuity.",
+    "ReviewLink.jsx: when rating>=4 but user picks a non-Tuoma service (Google/FB/Booking), the flow just shows the 'done' card without actually redirecting to the external site. Acceptable for demo, but the 'done' copy says 'Otwórz {svc} i wklej swoją opinię tam' — UX could be improved with a real outbound link.",
+    "PublicProfile.jsx: filters out reviews with manager_message (so manager-replied reviews are hidden). This logic seems inverted — usually owner-replied reviews are kept for credibility. Worth confirming product intent.",
+    "All required data-testid attributes present and tests robust."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "skipped", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "test_results_detail": {
+    "public_profile /p/kawiarnia-lumiere": {
+      "loaded": "PASS",
+      "avatar_letter_K": "PASS",
+      "rating_4.8/5_pl-format": "PASS (shown as '4,8 / 5')",
+      "categories_count_4": "PASS (Podstawowe, Oferta, Kontakt, Specjalne)",
+      "facts_total_12": "PASS",
+      "public_reviews_block": "PASS (6 cards rendered)",
+      "light_body_bg": "PASS (rgb(251,251,250))"
+    },
+    "navigation_to_review_link": {
+      "pub-leave-review_click_navigates_to_/r/kawiarnia-lumiere": "PASS"
+    },
+    "review_link /r/kawiarnia-lumiere": {
+      "rev-step-rate_visible_with_5_stars": "PASS",
+      "dark_body_bg": "PASS (rgb(10,24,22))",
+      "5★_click_highlights_5_stars": "PASS",
+      "rating_label_5/5_świetnie": "PASS",
+      "5★_flow_shows_4_services": "PASS (tuoma+google+facebook+booking equal)",
+      "2★_flow_shows_only_2_services_tuoma+google": "PASS",
+      "2★_tuoma_has_zalecane_label": "PASS",
+      "2★_google_has_muted_class": "PASS",
+      "2★_tuoma_click_triggers_waitlist_and_shows_done_with_private_message": "PASS (text contains 'prywatnie do właściciela')"
+    },
+    "landing /lp ecosystem": {
+      "nav-eco_link_href_#ecosystem": "PASS",
+      "scroll_to_section": "PASS",
+      "4_nodes_present": "PASS (node-admin, node-portal, node-public, node-review)",
+      "node-portal_href=/": "PASS",
+      "node-public_href=/p/kawiarnia-lumiere": "PASS",
+      "node-review_href=/r/kawiarnia-lumiere": "PASS",
+      "node-admin_not_a_link": "PASS (rendered as DIV, no href)"
+    }
+  },
+  "context_for_next_testing_agent": "All 3 new ecosystem features (/p, /r, /lp ecosystem) are functional and visually correct. The smart-routing logic for low ratings (≤3★) correctly limits public services and pushes Tuoma intercept. POST /api/waitlist is fired on tuoma click in negative flow. Backend was previously validated in iteration_1/2 and was not retested per request. No retest needed unless new changes are introduced."
+}
