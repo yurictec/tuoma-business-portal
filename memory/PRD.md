@@ -23,14 +23,17 @@ User uploaded HTML mockup `portal-dashboard.html` for the business portal — ta
 4. **Feed Prawdy · AI** — neutral truth feed visible to AI agents (key differentiator).
 5. **Klienci** — customer database recovered from intercepted reviews (the "moat").
 
-## Implemented (Jan 9, 2026)
-- ✅ FastAPI backend with auto-seed: 1 business, 9 reviews, 12 truth facts, 6 customers, 8 AI visibility entries, **11 AI mentions**.
-- ✅ Endpoints: business, metrics, reviews list/filter/patch, truth CRUD, customers, ai-visibility (grouped), **ai-mentions (with today summary)**.
+## Implemented (Jan 9–10, 2026)
+- ✅ FastAPI backend with auto-seed: 1 business, 9 reviews, 12 truth facts, 6 customers, 8 AI visibility entries, 11 AI mentions.
+- ✅ Endpoints: business, metrics, reviews list/filter/patch, truth CRUD, customers, ai-visibility (grouped), ai-mentions (with today summary), **waitlist (POST + count)**.
 - ✅ React portal with persistent palette (localStorage) and full sidebar navigation.
-- ✅ Pages: Pulpit (+ **live mentions banner with auto-rotating ticker**), Opinie, **Wzmianki AI · live** (hero counter + per-agent feed), Feed Prawdy · AI, Klienci, Zbieraj opinie, Widżet WWW, Statystyki, Ustawienia.
-- ✅ Reply modal with 3 modes: publiczna odpowiedź / podziękowanie / **przechwycenie** (private manager message).
-- ✅ Backend tested via pytest 11/11 passing. Frontend e2e via Playwright — all pages render, all 4 themes switch.
-- ✅ **Live AI Mentions retention hook** — owner sees real quotes from ChatGPT/Claude/Gemini/Perplexity recommending his cafe; pulsing live banner shows today's count + ticker.
+- ✅ Pages: Pulpit (+ live mentions banner with auto-rotating ticker), Opinie, Wzmianki AI · live (hero counter + per-agent feed), Feed Prawdy · AI, Klienci, Zbieraj opinie, Widżet WWW, Statystyki, Ustawienia.
+- ✅ Reply modal with 3 modes: publiczna odpowiedź / podziękowanie / przechwycenie.
+- ✅ Backend tested via pytest 11/11 + 6/6 waitlist passing. Frontend e2e 100% iteration_1 + iteration_2.
+- ✅ Live AI Mentions retention hook — owner sees real quotes from ChatGPT/Claude/Gemini/Perplexity.
+- ✅ **Marketing landing `/lp`** — dark editorial design, hero with 4 floating AI phone-cards, interactive 0-of-4 audit demo, "For investors" section (DMA + Data Act), working waitlist form saving to MongoDB with social-proof counter.
+- ✅ **Social proof marquee** — infinite-scroll carousel of 8 fictional Polish SMB businesses (kawiarnia, pizzeria, fryzjer, stomatolog, etc.) with unique typographic logos.
+- ✅ **Counter-up animations** — Intersection Observer powered counters on pain stats (6/6, 1, 95%) and waitlist count.
 
 ## Backlog (Prioritized)
 - **P0** — Real AI visibility check (call ChatGPT/Claude/Gemini through Emergent LLM key) instead of seeded data.

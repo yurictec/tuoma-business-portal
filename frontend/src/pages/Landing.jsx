@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { API } from "../App";
+import Counter from "../components/Counter";
+import SocialProof from "../components/SocialProof";
 
 /* ============================== AUDIT DEMO ============================== */
 const AGENTS = [
@@ -200,7 +202,7 @@ function WaitlistForm() {
       <button type="submit" className="btn-cta wait-submit" disabled={state === "sending"} data-testid="wf-submit">
         {state === "sending" ? "Zapisujemy…" : "Dołącz do listy oczekujących"}
       </button>
-      {count != null && <div className="wait-counter">Dołączyło już <b>{count}</b> osób · zapraszamy w kolejności zgłoszeń</div>}
+      {count != null && <div className="wait-counter">Dołączyło już <b><Counter to={count} duration={1500} testid="wait-count" /></b> osób · zapraszamy w kolejności zgłoszeń</div>}
     </form>
   );
 }
@@ -264,6 +266,9 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* SOCIAL PROOF */}
+      <SocialProof />
+
       {/* PAIN */}
       <section id="pain" className="lp-section pain">
         <div className="sec-head">
@@ -272,15 +277,15 @@ export default function Landing() {
         </div>
         <div className="pain-stats">
           <div className="pain-stat" data-testid="stat-6of6">
-            <div className="ps-num">6 / 6</div>
+            <div className="ps-num"><Counter to={6} duration={1100} testid="counter-6" /> / 6</div>
             <div className="ps-lbl">małych biznesów testowanych przez nas — niewidocznych dla AI</div>
           </div>
           <div className="pain-stat">
-            <div className="ps-num">1</div>
+            <div className="ps-num"><Counter to={1} duration={900} /></div>
             <div className="ps-lbl">odpowiedź AI · jeden polecony · zwycięzca bierze wszystko</div>
           </div>
           <div className="pain-stat">
-            <div className="ps-num">95%</div>
+            <div className="ps-num"><Counter to={95} duration={1300} suffix="%" /></div>
             <div className="ps-lbl">polskiego ruchu zaczyna w wyszukiwaniu — które właśnie pęka</div>
           </div>
         </div>

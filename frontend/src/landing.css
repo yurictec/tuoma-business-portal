@@ -196,6 +196,79 @@ body[data-lp="1"] .controls { display:none; }
 }
 .sec-sub { font-size:1rem; color:var(--ink-soft); margin-top:14px; line-height:1.55; }
 
+/* ============ SOCIAL PROOF ============ */
+.lp-social {
+  position:relative; z-index:5;
+  max-width:1280px; margin:0 auto;
+  padding:24px 36px 60px;
+}
+.sp-head {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  color:var(--muted); font:600 .78rem 'Hanken Grotesk'; letter-spacing:.05em;
+  margin-bottom:24px;
+}
+.sp-pulse {
+  width:7px; height:7px; border-radius:50%; background:var(--green);
+  box-shadow:0 0 0 4px rgba(32,201,185,.14);
+  animation: lp-pulse 1.7s ease-in-out infinite;
+}
+.sp-marquee {
+  position:relative; overflow:hidden;
+  mask-image:linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.sp-track {
+  display:flex; gap:18px; width:max-content;
+  animation: sp-scroll 42s linear infinite;
+}
+.lp-social:hover .sp-track { animation-play-state:paused; }
+@keyframes sp-scroll {
+  from { transform:translateX(0); }
+  to { transform:translateX(-50%); }
+}
+.sp-logo {
+  display:flex; align-items:center; gap:11px;
+  padding:14px 22px; border-radius:14px;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
+  min-width:max-content;
+  transition:background .2s, transform .2s;
+}
+.sp-logo:hover {
+  background:rgba(255,255,255,.06);
+  transform:translateY(-2px);
+}
+.sp-shape {
+  width:22px; height:22px; flex-shrink:0; display:inline-block;
+  box-shadow:0 0 0 4px rgba(255,255,255,.03);
+}
+.sp-shape.sp-dot {
+  width:14px; height:14px; border-radius:50%;
+  box-shadow:0 0 0 4px rgba(255,255,255,.03), 0 0 14px currentColor;
+}
+.sp-shape.sp-cross {
+  position:relative;
+}
+.sp-shape.sp-cross span {
+  position:absolute; left:50%; top:50%;
+  width:18px; height:3px; border-radius:2px;
+  transform:translate(-50%,-50%);
+}
+.sp-shape.sp-cross span:last-child { transform:translate(-50%,-50%) rotate(90deg); }
+.sp-text { line-height:1.1; }
+.sp-name {
+  font-size:1.05rem; color:var(--ink);
+  letter-spacing:-.01em;
+}
+.sp-meta {
+  font-size:.7rem; color:var(--muted); margin-top:4px;
+  font-weight:500;
+}
+@media (max-width:760px) {
+  .sp-track { animation-duration:30s; }
+  .sp-name { font-size:.95rem; }
+}
+
 /* ============ PAIN STATS ============ */
 .pain-stats {
   display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
