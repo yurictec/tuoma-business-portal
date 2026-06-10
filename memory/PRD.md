@@ -32,8 +32,11 @@ User uploaded HTML mockup `portal-dashboard.html` for the business portal — ta
 - ✅ Backend tested via pytest 11/11 + 6/6 waitlist passing. Frontend e2e 100% iteration_1 + iteration_2.
 - ✅ Live AI Mentions retention hook — owner sees real quotes from ChatGPT/Claude/Gemini/Perplexity.
 - ✅ **Marketing landing `/lp`** — dark editorial design, hero with 4 floating AI phone-cards, interactive 0-of-4 audit demo, "For investors" section (DMA + Data Act), working waitlist form saving to MongoDB with social-proof counter.
-- ✅ **Social proof marquee** — infinite-scroll carousel of 8 fictional Polish SMB businesses (kawiarnia, pizzeria, fryzjer, stomatolog, etc.) with unique typographic logos.
+- ✅ **Social proof marquee** — infinite-scroll carousel of 8 fictional Polish SMB businesses with unique typographic logos.
 - ✅ **Counter-up animations** — Intersection Observer powered counters on pain stats (6/6, 1, 95%) and waitlist count.
+- ✅ **Ecosystem section on `/lp`** — animated SVG hub-and-spoke diagram: central Tuoma "NEUTRAL LAYER" + 4 nodes (Admin / Portal / Publiczna strona / Link do opinii) with traveling data tokens.
+- ✅ **Public business page `/p/:slug`** — light themed digital-footprint page: avatar, rating, 12 verified AI facts grouped by category, public reviews block, "Zostaw opinię" CTA.
+- ✅ **Universal review link `/r/:slug`** — 2-step dark form with smart routing: 5★ → 4 public services (Tuoma/Google/Facebook/Booking), ≤3★ → Tuoma intercept only (private to owner). Negative reviews never leak to public sources by default.
 
 ## Backlog (Prioritized)
 - **P0** — Real AI visibility check (call ChatGPT/Claude/Gemini through Emergent LLM key) instead of seeded data.
